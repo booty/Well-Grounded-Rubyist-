@@ -60,3 +60,15 @@ Classes have their own methods, state, identity.
 4. Parent class mixin define it?
 5. (All the way up to BasicObject)
 
+### 6.1.3 Case Statements, Equality Comparisons
+
+I forgot the switches use `===` and not `==`
+
+`===` typically defaults to `==` unless you have overridden it
+
+`eql?` is true if `obj` and `other` refer to the same hash key. For others, synonymous with `==` usually. Some exceptions....
+
+`Numeric` types perform type conversion across `==` but not `eql?` -- `1==1.0` is true, but `1.eql?(1.0)` is false.
+
+`equal?` is for identity and should not be overridden. Essentially, pointer comparison.
+
