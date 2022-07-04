@@ -51,3 +51,12 @@ Classes have their own methods, state, identity.
 
 `Ticket::most_expensive` is the same as `Ticket.most_expensive` (except, `::` is just for class methods
 
+### 4.2 Method Lookup Chain
+
+0. self, basically
+1. Does my class define it?
+2. Any mixins define it?
+3. Parent class define it?
+4. Parent class mixin define it?
+5. (All the way up to BasicObject)
+
