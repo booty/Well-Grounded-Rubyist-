@@ -72,3 +72,57 @@ I forgot the switches use `===` and not `==`
 
 `equal?` is for identity and should not be overridden. Essentially, pointer comparison.
 
+### 7.4.1 to_*, to_s
+
+`#to_s`
+
+  this is what string interpolation uses
+
+`#inspect`
+
+  "born to be overridden" - by default, it is nearly useless
+
+`#display`
+
+  lol what
+
+`#to_str`
+
+  should return stringlike object, not just a string representation
+
+
+### 7.6.1 Equality Tests
+
+
+
+### 9.0 Collection and Container Objects
+
+
+"Ruby implements collections principally through the technique of defining classes that mix in the Enumerable module"
+
+
+```ruby
+class YourMom
+  def slut
+    # some comments
+    asdcasdcas = 42
+  end
+end
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
