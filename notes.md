@@ -72,3 +72,20 @@ I forgot the switches use `===` and not `==`
 
 `equal?` is for identity and should not be overridden. Essentially, pointer comparison.
 
+### Test
+
+This isn't anything. `or is it`
+
+```ruby
+# here's some ruby
+while a==b
+  c.each do { |x| puts "your mom" }
+end
+```
+
+```sql
+-- comment is here
+SELECT *
+FROM ORDERS
+WHERE name="YOURMOM"
+```
