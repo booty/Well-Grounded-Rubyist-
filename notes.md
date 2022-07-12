@@ -72,20 +72,28 @@ I forgot the switches use `===` and not `==`
 
 `equal?` is for identity and should not be overridden. Essentially, pointer comparison.
 
-### Test
+### 7.4.1 to_*, to_s
 
-This isn't anything. `or is it`
+`#to_s`
 
-```ruby
-# here's some ruby
-while a==b
-  c.each do { |x| puts "your mom" }
-end
-```
+  this is what string interpolation uses
 
-```sql
--- comment is here
-SELECT *
-FROM ORDERS
-WHERE name="YOURMOM"
-```
+`#inspect`
+
+  "born to be overridden" - by default, it is nearly useless
+
+`#display`
+
+  lol what
+
+`#to_str`
+
+  should return stringlike object, not just a string representation
+
+### 7.6.1 Equality Tests
+
+
+### 9.0 Collection and Container Objects
+
+"Ruby implements collections principally through the technique of defining classes that mix in the Enumerable module"
+
