@@ -192,3 +192,9 @@ Also takes a code block while we're at it.
 ["USA", "UK", "France", "Germany"].grep(/[a-z]/) {|c| c.upcase }
   # => ["FRANCE", "GERMANY"]
 ```
+
+## 13 Object Individuation
+
+## 13.1 Singleton Class
+
+
