@@ -195,6 +195,26 @@ Also takes a code block while we're at it.
 
 ## 13 Object Individuation
 
-## 13.1 Singleton Class
+### 13.1 Singleton Methods
+
+Define a singleton method directly on an individual object.
+
+```ruby
+obj = Object.new
+def obj.talk
+  puts "Hi!"
+end
+obj.talk
+```
+
+Most common type of singleton is actually class methods - they're methods added to `Class` objects on an individual basis.
+
+```ruby
+class Car
+  def self.makes
+    %w{Ford Honda Rolls-Royce}
+  end
+end
+```
 
 
