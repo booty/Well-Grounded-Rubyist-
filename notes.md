@@ -97,3 +97,98 @@ I forgot the switches use `===` and not `==`
 
 "Ruby implements collections principally through the technique of defining classes that mix in the Enumerable module"
 
+### 11.0 Regular Expressions and Regexp-Based String Operations
+
+```ruby
+# Returns a boolean
+puts /hello/i.match?("Hello, have we met?")
+
+# Returns string index of first match (13 in this case)
+puts "Have we said hello before?" =~ /hello/
+
+# Returns nil
+puts "Zzzz" =~ /hello/
+
+# Returns MatchData object. This is the full-fat result,
+# with named capture groups, etc.
+md = /(hello)/i.match("You say goodbye, and I say hello. Hello hello hello! I don't know why you say goodbye, I say hello")
+
+# You can do some string interp when defining a regex
+str = "def"  # => "def"
+/abc#{str}/  # => /abcdef/
+```
+
+### 11.7 Common Methods That Use Regular Expressions
+
+
+#### 11.7.1 String#scan
+
+`String#scan` returns an array of matches.
+
+```ruby
+regex = /\s(?<food>\w*?)[,.]/
+string = "I ate vegetables, hamburgers, and pizza."
+
+# Returns ["vegetables", "hamburgers", "pizza"]
+string.scan(regex).flatten
+```
+
+If you use capture groups with `String#scan`, the results will be grouped.
+
+```ruby
+str = "Leopold Auer was the teacher of Jascha Heifetz."
+  # => "Leopold Auer was the teacher of Jascha Heifetz."
+>> violinists = str.scan(/([A-Z]\w+)\s+([A-Z]\w+)/)
+  # => [["Leopold", "Auer"], ["Jascha", "Heifetz"]]
+```
+
+`String#scan` can optionally accept a code block.
+
+💡Each iteration's results are discarded immediately, which can save a lot of memory if you are iterating through a huge piece of input text.
+
+```ruby
+str.scan(/([A-Z]\w+)\s+([A-Z]\w+)/) do |fname, lname|
+  puts "#{lname}'s first name was #{fname}."
+end
+```
+
+### 11.7.2 String#split
+
+Simple case.
+
+```ruby
+line = "first_name=david;last_name=black;country=usa"
+record = line.split(/=|;/)
+  # => ["first_name", "david", "last_name", "black", "country", "usa"]
+```
+
+Or, read it directly into a hash.
+
+```ruby
+data = []
+record =
+     Hash[*line.split(/=|;/)]
+data.push(record)
+  # => {"first_name"=>"david", "last_name"=>"black", "country"=>"usa"}
+```
+
+Optional parameter to limit the number of items returned.
+
+```ruby
+"a,b,c,d,e".split(/,/,3)
+  # => ["a", "b", "c,d,e"]
+```
+
+### 11.7.4 Not the Title of This Section But Hey, Enumerable#grep Exists
+
+```ruby
+["USA", "UK", "France", "Germany"].grep(/[a-z]/)
+  # => ["France", "Germany"]
+```
+
+Also takes a code block while we're at it.
+
+```ruby
+["USA", "UK", "France", "Germany"].grep(/[a-z]/) {|c| c.upcase }
+  # => ["FRANCE", "GERMANY"]
+```
