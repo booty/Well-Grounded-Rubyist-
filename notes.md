@@ -218,3 +218,157 @@ end
 ```
 
 
+Simple singletons.
+
+```ruby
+obj = Object.new
+def obj.talk
+  puts "Hi!"
+end
+obj.talk
+```
+
+Most common type of singleton is actually class methods!
+
+```ruby
+class Car
+  def self.makes
+    %w{ Honda Ford Toyota Chevrolet Volvo }
+  end
+end
+```
+
+Each object ultimately has two classes:
+
+1. The class of which it's an instance
+2. Its singleton class
+
+Two ways to define methods on a singleton class.
+
+`<< object` notation means the anonymous, singleton class of `object`
+
+```ruby
+str = "Hello"
+class << str
+  def twice
+    self + " " + self
+end end
+puts str.twice
+  # => Hello Hello
+```
+
+Equivalent to this:
+
+```ruby
+def str.twice
+  self + " " + self
+end
+```
+
+Only difference is constant resolution.
+
+```ruby
+N=1
+obj = Object.new
+class << obj
+  N=2
+end
+
+def obj.a_method
+  puts N
+end
+
+class << obj
+  def another_method
+    puts N
+  end
+end
+
+obj.a_method         # => 1  (the outer level N)
+obj.another_method   # => 2  (the N belonging to singleton class)
+```
+
+
+## 14 Callable and Runnable Objects
+
+Main callable objects:
+
+- `Proc` objects
+- lambdas
+- method objects
+
+### 14.1 Basic Anonymous Functions: the Proc Class
+
+Procs:
+
+- Self contained code
+- You can pass around, store, etc
+- Pass as method objects
+- Execute with `#call`
+
+```ruby
+# The most basic Proc.
+pr = Proc.new { puts "I'm a basic proc." }
+pr.call
+
+# Same thing; this is the preferred syntax
+pr2 = proc { puts "I'm a basic proc too." }
+pr2.call
+```
+
+Procs vs. Blocks
+
+- You always create `Procs` with a block
+- But not every block becomes a proc
+- Objects?
+  - `Procs` are objects
+  - A block is not an object
+
+
+```ruby
+# There's a block here, but no proc
+[1, 2, 3].each { |x| puts x * 10 }
+
+# A method can capture a block, objectified into a proc
+def call_a_proc(&foo)
+  puts "call_a_proc: foo is a #{foo.class}"   # => it's a prod
+  foo.call
+end
+call_a_proc { puts "I'm a block that becomes a Proc, rite?" }
+
+# Proc can serve in place of a block
+p = proc { |x| puts x.upcase }
+%w{ John Booty }.each(&p)
+```
+
+Hash#to_proc
+
+```ruby
+puts "Albums from 2015: " + albums[2015]
+  # => "To Pimp a Butterfly"
+
+puts [1988, 1993].map(&albums)
+  # => ["Straight Outta Compton", "Midnight Marauders"]
+
+puts (2000..2100).map(&albums).compact
+  # => ["Madvillainy", "To Pimp a Butterfly"]
+```
+
+Symbol#to_proc
+
+```ruby
+%(john booty).map(&:capitalize)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
