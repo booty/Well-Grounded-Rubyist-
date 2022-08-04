@@ -1,4 +1,13 @@
+Layout/CommentIndentation:
+  Enabled: false
+
 Style/Documentation:
+  Enabled: false
+
+Style/Lamba:
+  Enabled: false
+
+Style/StringConcatenation:
   Enabled: false
 
 Style/StringLiterals:
