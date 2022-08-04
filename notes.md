@@ -372,15 +372,18 @@ tlk_unbound.bind(foo_child).call # => My self is: #<FooChild:0x000000010fef33e0>
 
 ### 14.4 Lambdas
 
-Like a `Proc`, but:
+They are Procs! Differences from normal proc:
 
-- Can't call it with the wrong number of arguments
--
+- Fussy. Can't call it with the wrong number of arguments.
+- Unlike regular `Procs`, they are never implicitly created.
+- Treat `return` differently:
+  - In a lambda, `return` only exits the lambda
+  - In a regular `Proc`, `return` exits the method in which the `Proc` is being executed
 
+```ruby
+# Returns Proc (older syntax)
+puts lambda { puts "42" }.class
 
-
-
-
-
-
-
+# Returns Proc (newer stabby syntax)
+puts -> { puts "42" }.class
+```
