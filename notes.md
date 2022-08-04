@@ -339,10 +339,43 @@ Symbol#to_proc
 %(john booty).map(&:capitalize)
 ```
 
+### 14.3 Methods as Objects
 
+Methods aren't objects... until you tell them to be.
 
+```ruby
+class Foo
+  def talk
+    puts "My self is: #{self}"
+  end
+end
+foo = Foo.new
 
+# Method is still bound to Foo
+tlk = foo.method(:talk)
+tlk.call
+puts tlk.owner # => Foo
+puts tlk.class # => Method
 
+# A child class
+class FooChild < Foo; end
+foo_child = FooChild.new
+
+# Unbinding a method from Foo and rebinding it to FooChild
+tlk_unbound = tlk.unbind
+puts tlk_unbound.object_id       # => 60
+puts tlk.object_id               # => 80 (not the same object)
+tlk_unbound.bind(foo_child).call # => My self is: #<FooChild:0x000000010fef33e0>
+```
+
+💡When would you use this? Probably never. But if you have a class hierarchy A->B->C, you might want C to use some instance methods from A instead of B. You could accomplish that with this.
+
+### 14.4 Lambdas
+
+Like a `Proc`, but:
+
+- Can't call it with the wrong number of arguments
+-
 
 
 

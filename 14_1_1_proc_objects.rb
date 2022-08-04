@@ -13,14 +13,14 @@ pr2.call
 
 # A method can capture a block, objectified into a proc
 def call_a_proc(&foo)
-  puts "call_a_proc: foo is a #{foo.class}"   # => it's a prod
+  puts "call_a_proc: foo is a #{foo.class}" # => it's a proc
   foo.call
 end
 call_a_proc { puts "I'm a block that becomes a Proc, rite?" }
 
 # Proc can serve in place of a block
 p = proc { |x| puts x.upcase }
-%w{John Booty}.each(&p)
+%w[John Booty].each(&p)
 
 # Hash#to_proc - it's wild
 albums = {
@@ -38,3 +38,14 @@ puts [1988, 1993].map(&albums)
   # => "Straight Outta Compton", "Midnight Marauders"
 
 puts (2000..2100).map(&albums).compact
+  # => "Madvillainy", "To Pimp a Butterfly"
+
+def process_text(text, block)
+  puts block.call(text)
+end
+
+p1 = proc { |x| x.reverse }
+p2 = proc { |x| x * 3 }
+str = "booty"
+process_text(str, p1)
+process_text(str, p2)
